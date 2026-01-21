@@ -1,5 +1,4 @@
 package org.example.parkinglot2.servlets;
-
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -14,10 +13,6 @@ public class Logout extends HttpServlet {
         request.logout();
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath());
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
     }
 }

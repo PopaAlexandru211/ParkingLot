@@ -18,25 +18,19 @@ public class Car {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
-    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Users users;
+
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private CarPhoto photo;
 
-
-    public CarPhoto getPhoto() {
-        return photo;
+    public Users getOwner() {
+        return users;
     }
 
-    public void setPhoto(CarPhoto photo) {
-        this.photo = photo;
-    }
-    public User getOwner() {
-        return owner;
+    public void setOwner(Users users) {
+        this.users = users;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
 
     public String getParkingSpot() {
         return parkingSpot;
@@ -61,5 +55,11 @@ public class Car {
     public void setId(Long id) {
         this.id = id;
     }
+    public void setPhoto(CarPhoto photo){
+        this.photo=photo;
+    }
 
+    public CarPhoto getPhoto(){
+        return  photo;
+    }
 }

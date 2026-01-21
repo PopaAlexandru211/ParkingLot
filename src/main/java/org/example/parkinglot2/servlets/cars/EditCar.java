@@ -1,52 +1,50 @@
 package org.example.parkinglot2.servlets.cars;
-
 import jakarta.inject.Inject;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.HttpConstraint;
+import jakarta.servlet.annotation.ServletSecurity;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.example.parkinglot2.ejb.CarsBean;
+import org.example.parkinglot2.ejb.UsersBean;
 import org.example.parkinglot2.common.CarDto;
 import org.example.parkinglot2.common.UserDto;
-import org.example.parkinglot2.ejb.CarsBean;
-import org.example.parkinglot2.ejb.UserBean;
 
 import java.io.IOException;
 import java.util.List;
 @ServletSecurity(value = @HttpConstraint(rolesAllowed = {"WRITE_CARS"}))
-@WebServlet(name = "EditCar", value = "/EditCar")
+@WebServlet(name="EditCar",value="/EditCar")
 public class EditCar extends HttpServlet {
 
     @Inject
-    UserBean usersBean;
-
+    UsersBean usersBean;
     @Inject
     CarsBean carsBean;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
-        List<UserDto> users = usersBean.findAllUsers();
-        request.setAttribute("users", users);
-
-        Long carId = Long.parseLong(request.getParameter("id")); // Usually passed as ?id=... in URL
-        CarDto car = carsBean.findById(carId);
-        request.setAttribute("car", car);
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        List<UserDto> users=usersBean.findAllUsers();
+        request.setAttribute("users",users);
+        Long cardId=Long.parseLong(request.getParameter("id"));
+        CarDto car=carsBean.findById(cardId);
+        request.setAttribute("car",car);
         request.getRequestDispatcher("/WEB-INF/pages/cars/editCar.jsp").forward(request, response);
     }
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
-        // Names match editCar.jsp form fields EXACTLY
-        String licensePlate = request.getParameter("licensePlate"); // camelCase in JSP
-        String parkingSpot = request.getParameter("parking_spot");  // snake_case in JSP
-        String userIdStr = request.getParameter("user_id");         // snake_case in JSP
-        String carIdStr = request.getParameter("car_id");           // snake_case in JSP
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        Long userID = Long.parseLong(userIdStr);
-        Long carID = Long.parseLong(carIdStr);
+        String licensePlate = request.getParameter("license_plate");
+        String parkingSpot = request.getParameter("parking_spot");
+        Long userId = Long.parseLong(request.getParameter("owner_id"));
+        Long carId = Long.parseLong(request.getParameter("car_id"));
 
-        carsBean.updateCar(carID, licensePlate, parkingSpot, userID);
+        carsBean.updateCar(carId, licensePlate, parkingSpot, userId);
+
         response.sendRedirect(request.getContextPath() + "/Cars");
     }
+
+
 }

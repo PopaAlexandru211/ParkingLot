@@ -1,11 +1,7 @@
 package org.example.parkinglot2.servlets;
-
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
@@ -14,8 +10,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request,response);
-
+        request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
     }
 
     @Override
@@ -23,5 +18,6 @@ public class Login extends HttpServlet {
             ServletException, IOException {
         request.setAttribute("message", "Username or password incorrect");
         request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+
     }
 }

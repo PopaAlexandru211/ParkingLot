@@ -10,7 +10,8 @@ import java.util.Set;
 @Stateful
 @SessionScoped
 public class InvoiceBean implements Serializable {
-    Set<Long> userIds =new HashSet<>();
+
+    Set<Long> userIds = new HashSet<>();
 
     public Set<Long> getUserIds() {
         return userIds;

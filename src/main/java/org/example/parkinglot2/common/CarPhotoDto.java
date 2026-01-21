@@ -1,62 +1,41 @@
 package org.example.parkinglot2.common;
 
-import java.io.Serializable;
-import java.util.Objects;
-
-/**
- * DTO for {@link org.example.parkinglot2.entities.CarPhoto}
- */
-public class CarPhotoDto implements Serializable {
-    private final Long id;
-    private final byte[] fileContent;
-    private final String fileType;
-    private final String filename;
-
-    public CarPhotoDto(Long id, String filename, String fileType,byte[] fileContent ) {
-        this.id = id;
-        this.fileContent = fileContent;
-        this.fileType = fileType;
-        this.filename = filename;
-    }
+public class CarPhotoDto {
+    private Long id;
+    private String filename;
+    private String fileType;
+    private byte[] fileContent;
 
     public Long getId() {
         return id;
     }
-
-    public byte[] getFileContent() {
-        return fileContent;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public String getFileType() {
-        return fileType;
-    }
-
     public String getFilename() {
         return filename;
     }
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+    public String getFileType() {
+        return fileType;
+    }
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+    public byte[] getFileContent() {
+        return fileContent;
+    }
+    public void setFileContent(byte[] fileContent) {
+        this.fileContent = fileContent;
+    }
+    public CarPhotoDto(Long id,String filename,String fileType,byte[] fileContent) {
+        this.id=id;
+        this.filename=filename;
+        this.fileType=fileType;
+        this.fileContent=fileContent;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarPhotoDto entity = (CarPhotoDto) o;
-        return Objects.equals(this.id, entity.id) &&
-                Objects.equals(this.fileContent, entity.fileContent) &&
-                Objects.equals(this.fileType, entity.fileType) &&
-                Objects.equals(this.filename, entity.filename);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fileContent, fileType, filename);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "fileContent = " + fileContent + ", " +
-                "fileType = " + fileType + ", " +
-                "filename = " + filename + ")";
-    }
 }

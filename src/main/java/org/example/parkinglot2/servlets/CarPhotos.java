@@ -1,11 +1,10 @@
 package org.example.parkinglot2.servlets;
-
-import org.example.parkinglot2.common.CarPhotoDto;
-import org.example.parkinglot2.ejb.CarsBean;
 import jakarta.inject.Inject;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.example.parkinglot2.ejb.CarsBean;
+import org.example.parkinglot2.common.CarPhotoDto;
 
 import java.io.IOException;
 
@@ -13,12 +12,11 @@ import java.io.IOException;
 public class CarPhotos extends HttpServlet {
     @Inject
     CarsBean carsBean;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
-        Integer carId = Integer.parseInt(request.getParameter("id"));
-        CarPhotoDto photo= carsBean.findPhotoByCarId(carId);
+        Integer carId=Integer.parseInt(request.getParameter("id"));
+        CarPhotoDto photo=carsBean.findPhotoByCarId(carId);
         if(photo!=null){
             response.setContentType(photo.getFileType());
             response.setContentLength(photo.getFileContent().length);
@@ -27,10 +25,9 @@ public class CarPhotos extends HttpServlet {
         else{
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
+
+
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
-    }
+
 }

@@ -2,40 +2,27 @@ package org.example.parkinglot2.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "usergroups")
 public class UserGroup {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "userGroup")
-    private String userGroup;
-
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @ManyToMany(mappedBy = "userGroups")
-    private List<User> users = new ArrayList<>();
+    @Column(name = "user_group", nullable = false)
+    private String userGroup;
 
-    public List<User> getUsers() {
-        return users;
+    public Long getId() {
+        return id;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public String getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(String userGroup) {
-        this.userGroup = userGroup;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -46,13 +33,11 @@ public class UserGroup {
         this.username = username;
     }
 
-    public Long getId() {
-        return id;
+    public String getUserGroup() {
+        return userGroup;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
     }
-
-
 }
